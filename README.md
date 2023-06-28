@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 51.250.72.225
+IP <51.250.72.225>
 
 Frontend https://mesto-svetlanadelrey.nomoreparties.sbs
 
