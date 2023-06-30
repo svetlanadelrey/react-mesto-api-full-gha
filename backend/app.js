@@ -23,9 +23,9 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-app.get('/crash-test', () => {
+app.get('/crash-test', (req, res, next) => {
   setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
+    next(new Error('Сервер сейчас упадёт'));
   }, 0);
 });
 
@@ -35,7 +35,7 @@ app.post('/signup', validateCreateUser, createUser);
 app.use('/users', auth, userRouter);
 app.use('/cards', auth, cardRouter);
 
-app.all('/*', (req, res, next) => {
+app.all('/*', auth, (req, res, next) => {
   next(new NotFoundError('Запрашиваемая страница не существует'));
 });
 

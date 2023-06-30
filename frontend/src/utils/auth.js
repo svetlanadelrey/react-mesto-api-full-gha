@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = 'https://api.mesto-svetlanadelrey.nomoreparties.sbs';
 
 const getJson = (res) => {
     if (res.ok) {
