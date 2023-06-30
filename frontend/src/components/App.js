@@ -169,7 +169,6 @@ function App() {
         if (res) {
           api.setToken(jwt)
           setLoggedIn(true);
-          setEmail(res.data.email);
           navigate("/", { replace: true });
         }
       })
