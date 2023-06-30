@@ -1,7 +1,8 @@
 class Api {
-    constructor(url, token) {
+    constructor(url, token, headers) {
         this._url = url;
         this._token = token;
+        this._headers = headers;
     }
 
     _getHeaders() {
@@ -16,6 +17,10 @@ class Api {
           return res.json();
         }
         return Promise.reject(`Ошибка: ${res.status}`);
+    }
+
+    setToken(token) {
+        this._headers.Authorization = `Bearer ${token}`;
     }
 
     getCards() {
