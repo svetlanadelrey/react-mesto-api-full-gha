@@ -42,6 +42,7 @@ function App() {
         })
         .catch(err => console.log(err));
     }
+    handleCheckToken();
   }, [loggedIn]);
 
   React.useEffect(() => {
@@ -160,7 +161,7 @@ function App() {
     })
   }
 
-  const handleCheckToken = () => {
+  function handleCheckToken() {
     const jwt = localStorage.getItem('jwt');
     if(jwt) {
       auth.checkToken(jwt)
