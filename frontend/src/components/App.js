@@ -140,6 +140,7 @@ function App() {
   const handleSignOut = () => {
     setLoggedIn(false);
     setEmail('');
+    api.setToken(null);
     navigate("/sign-in", { replace: true });
     localStorage.removeItem("jwt");
   }
@@ -164,9 +165,12 @@ function App() {
     if(jwt) {
       auth.checkToken(jwt)
       .then((res) => {
-        setLoggedIn(true);
-        setEmail(res.data.email);
-        navigate("/", { replace: true });
+        if (res) {
+          api.setToken(jwt)
+          setLoggedIn(true);
+          setEmail(res.data.email);
+          navigate("/", { replace: true });
+        }
       })
       .catch(err => console.log(err))
     }
