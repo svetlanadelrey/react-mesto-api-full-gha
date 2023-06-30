@@ -167,7 +167,7 @@ function App() {
       auth.checkToken(jwt)
       .then((res) => {
         if (res) {
-          api.setToken(jwt)
+          api.setToken(jwt);
           setLoggedIn(true);
           navigate("/", { replace: true });
         }
