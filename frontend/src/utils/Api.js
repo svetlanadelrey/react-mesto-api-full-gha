@@ -93,9 +93,13 @@ class Api {
     }
 }
 
-const api = new Api(
-    'https://mesto.nomoreparties.co/v1/cohort-61',
-    '6cb1c4c3-65bd-4e4c-b78a-a5117aee9407'
+const api = new Api({
+    url: 'https://api.mesto-svetlanadelrey.nomoreparties.sbs',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+}
 );
 
 export default api;

@@ -29,10 +29,10 @@ const deleteCard = (req, res, next) => {
   Card.findById(cardId)
     .then((card) => {
       if (!card) {
-        next(new NotFoundError('Карточка не найдена'));
+        throw new NotFoundError('Карточка не найдена');
       }
       if (card.owner._id.toString() !== owner) {
-        next(new ForbiddenError('Нет доступа'));
+        throw new ForbiddenError('Нет доступа');
       }
       Card.findByIdAndRemove(cardId)
         .then(() => res.send({ message: 'Карточка удалена' }))
@@ -40,10 +40,9 @@ const deleteCard = (req, res, next) => {
     })
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError) {
-        next(new BadRequestError('Введены некорректные данные'));
-      } else {
-        next(err);
+        return next(new BadRequestError('Введены некорректные данные'));
       }
+      return next(err);
     });
 };
 
