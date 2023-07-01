@@ -42,7 +42,6 @@ function App() {
         })
         .catch(err => console.log(err));
     }
-    handleCheckToken();
   }, [loggedIn]);
 
   React.useEffect(() => {
@@ -52,7 +51,18 @@ function App() {
   }, [loggedIn, navigate]);
 
   React.useEffect(() => {
-    handleCheckToken();
+    const jwt = localStorage.getItem('jwt');
+    if(jwt) {
+      auth.checkToken(jwt)
+      .then((res) => {
+        if (res) {
+          api.setToken(jwt);
+          setLoggedIn(true);
+          navigate("/", { replace: true });
+        }
+      })
+      .catch(err => console.log(err))
+    }
   }, [])
 
   const handleEditAvatarClick = () => {
@@ -141,7 +151,6 @@ function App() {
   const handleSignOut = () => {
     setLoggedIn(false);
     setEmail('');
-    api.setToken(null);
     navigate("/sign-in", { replace: true });
     localStorage.removeItem("jwt");
   }
@@ -161,20 +170,19 @@ function App() {
     })
   }
 
-  function handleCheckToken() {
+  /*function handleCheckToken() {
     const jwt = localStorage.getItem('jwt');
     if(jwt) {
       auth.checkToken(jwt)
       .then((res) => {
         if (res) {
-          api.setToken(jwt);
           setLoggedIn(true);
           navigate("/", { replace: true });
         }
       })
       .catch(err => console.log(err))
     }
-  }
+  }*/
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

@@ -4,13 +4,6 @@ class Api {
         this._headers = headers;
     }
 
-    _getHeaders() {
-        return {
-            authorization: this._token,
-            'Content-Type': 'application/json'
-          }
-    }
-
     _getJson(res) {
         if (res.ok) {
           return res.json();
@@ -20,11 +13,11 @@ class Api {
 
     setToken(token) {
         this._headers.Authorization = `Bearer ${token}`;
-    }
+      }
 
-    getCards(token) {
+    getCards() {
         return fetch(`${this._url}/cards`, {
-            headers: this._headers,
+            headers: this._headers
           })
             .then(this._getJson);
     }
@@ -61,7 +54,7 @@ class Api {
     setLike(id) {
         return fetch(`${this._url}/cards/${id}/likes`, {
             method: 'PUT',
-            headers: this._headers,           
+            headers: this._headers,          
         }).then(this._getJson);
     }
 
