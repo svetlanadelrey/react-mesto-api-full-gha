@@ -51,19 +51,19 @@ function App() {
   }, [loggedIn, navigate]);
 
   React.useEffect(() => {
-    const jwt = localStorage.getItem('jwt');
-    if(jwt) {
-      auth.checkToken(jwt)
+    const token = localStorage.getItem('jwt');
+    if(token) {
+      auth.checkToken(token)
       .then((res) => {
         if (res) {
-          api.setToken(jwt);
+          api.setToken(token);
           setLoggedIn(true);
           navigate("/", { replace: true });
         }
       })
       .catch(err => console.log(err))
     }
-  }, [])
+  }, [navigate])
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -90,7 +90,7 @@ function App() {
   }
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(id => id === currentUser._id);
     
     api.changeLikeCardStatus(card._id, !isLiked)
     .then((newCard) => {
