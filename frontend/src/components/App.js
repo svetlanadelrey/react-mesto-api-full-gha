@@ -90,12 +90,12 @@ function App() {
   }
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some(id => id === currentUser._id);
+    const isLiked = card.likes.some((id) => id === currentUser._id);
     
     api.changeLikeCardStatus(card._id, !isLiked)
     .then((newCard) => {
-        setCards((state) => 
-        state.map((c) => c._id === card._id ? newCard : c));
+        setCards((cards) => 
+        cards.map((c) => c._id === card._id ? newCard : c));
     })
     .catch(err => console.log(err));
   }
@@ -103,8 +103,8 @@ function App() {
   const handleCardDelete = (card) => {
     api.deleteCard(card._id)
     .then(() => {
-      setCards((state) => 
-      state.filter((c) => c._id !== card._id));
+      setCards((cards) => 
+      cards.filter((c) => c._id !== card._id));
     })
     .catch(err => console.log(err));
   }
@@ -128,9 +128,9 @@ function App() {
   }
 
   const handleAddPlaceSubmit = (card) => {
-    api.addCard(card)
+    api.addCard(card.place, card.link)
     .then((newCard) => {
-      setCards([newCard, ...cards]);
+      setCards([newCard.card, ...cards]);
       closeAllPopups();
     })
     .catch(err => console.log(err));
@@ -171,20 +171,6 @@ function App() {
       console.log(err);
     })
   }
-
-  /*function handleCheckToken() {
-    const jwt = localStorage.getItem('jwt');
-    if(jwt) {
-      auth.checkToken(jwt)
-      .then((res) => {
-        if (res) {
-          setLoggedIn(true);
-          navigate("/", { replace: true });
-        }
-      })
-      .catch(err => console.log(err))
-    }
-  }*/
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
