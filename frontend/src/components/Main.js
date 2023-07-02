@@ -38,9 +38,8 @@ function Main({cards, onEditAvatar, onEditProfile, onAddPlace, onCardClick, onCa
         <section className="gallery" aria-label="Фотогалерея">
           <ul className="gallery__list">
             {cards.map((card) => 
-              <Card
+              <Card card={card}
                 key={card._id}
-                card={card}
                 onCardClick={onCardClick}
                 onCardLike={onCardLike}
                 onCardDelete={onCardDelete}
